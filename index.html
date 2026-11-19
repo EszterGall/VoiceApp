@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f5f5">
+  <meta name="description" content="A SeeVoice képeken található szöveget ismer fel és olvas fel.">
+  <title>SeeVoice – Szövegfelolvasó</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script defer src="ocr.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Ugrás a fő tartalomhoz</a>
+
+  <div id="voiceWelcome" class="welcome-backdrop" role="dialog" aria-modal="true"
+       aria-labelledby="welcomeTitle" aria-describedby="welcomeDescription">
+    <section class="welcome-card">
+      <p class="small-heading">SEVOICE – FELolvasó</p>
+      <h1 id="welcomeTitle">Szia! Kezdjük a hangvezérléssel.</h1>
+      <p id="welcomeDescription">A mikrofon bekapcsolása után hangutasításokkal irányíthatod a felolvasást.</p>
+      <button id="enableVoiceButton" class="button primary" type="button">Hangvezérlés bekapcsolása</button>
+      <p class="note">A böngésző kérni fogja a mikrofon engedélyezését. A hangfelismerés támogatása böngészőnként eltérhet.</p>
+      <button id="continueWithoutVoice" class="link-button" type="button">Folytatás hangvezérlés nélkül</button>
+      <p id="welcomeStatus" class="status" role="status" aria-live="polite">A hangvezérlés indításra kész.</p>
+    </section>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#main">SeeVoice</a>
+    <span class="header-description">KÉPFELISMERÉS ÉS FELOLVASÁS</span>
+  </header>
+
+  <main id="main">
+    <section class="intro">
+      <h2>Olvasd el. Vagy hallgasd meg.</h2>
+      <p>Tölts fel egy képet, ismertesd fel a rajta lévő szöveget, majd hallgasd meg.</p>
+      <div class="voice-status" aria-live="polite">
+        <span id="voiceState">Hangvezérlés nincs bekapcsolva</span>
+        <button id="voiceToggleButton" class="button secondary" type="button">Hangvezérlés indítása</button>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite">A képernyőn lévő gombokkal hangvezérlés nélkül is használhatod az oldalt.</p>
+    </section>
+
+    <section class="content-grid" aria-label="Felolvasó eszközök">
+      <article class="section-card">
+        <h3>1. Kép feltöltése</h3>
+        <p>Válassz egy jól olvasható képet, például egy levelet, étlapot vagy címkét.</p>
+        <label class="button primary upload-button" for="imageInput">Kép kiválasztása</label>
+        <input id="imageInput" type="file" accept="image/*" capture="environment">
+        <div id="imagePreviewWrap" class="preview-wrap" hidden>
+          <img id="imagePreview" alt="A kiválasztott kép előnézete">
+        </div>
+        <button id="scanButton" class="button secondary full-width" type="button" disabled>Szöveg felismerése</button>
+        <p id="ocrStatus" class="status" role="status" aria-live="polite">A képfelismerés jelenleg angol nyelven működik.</p>
+      </article>
+
+      <article class="section-card">
+        <h3>2. Szöveg felolvasása</h3>
+        <label for="recognizedText">Felismert vagy beírt szöveg</label>
+        <textarea id="recognizedText" rows="7" placeholder="A felismert szöveg itt jelenik meg. Ide saját szöveget is beírhatsz."></textarea>
+        <div class="button-row">
+          <button id="readButton" class="button primary" type="button">Felolvasás</button>
+          <button id="pauseButton" class="button secondary" type="button">Szünet / folytatás</button>
+          <button id="stopButton" class="button secondary" type="button">Leállítás</button>
+        </div>
+        <div class="settings">
+          <label for="speed">Felolvasás sebessége: <strong id="speedValue">0,9×</strong></label>
+          <input id="speed" type="range" min="0.6" max="1.5" value="0.9" step="0.1">
+          <label for="voiceSelect">Beszédhang</label>
+          <select id="voiceSelect"><option value="">Eszköz alapértelmezett hangja</option></select>
+        </div>
+      </article>
+    </section>
+
+    <section class="section-card commands">
+      <h3>Hangutasítások</h3>
+      <p>Ha a böngésződ támogatja a hangfelismerést, ezeket a parancsokat használhatod:</p>
+      <ul>
+        <li><strong>Olvasd fel</strong> – elindítja a felolvasást.</li>
+        <li><strong>Szünet</strong> – szünetelteti a felolvasást.</li>
+        <li><strong>Folytatás</strong> – folytatja az olvasást.</li>
+        <li><strong>Ismételd</strong> – újra felolvassa a szöveget.</li>
+        <li><strong>Lassabban / Gyorsabban</strong> – módosítja a sebességet.</li>
+        <li><strong>Állj</strong> – leállítja a felolvasást.</li>
+      </ul>
+      <p class="note">A hangfelismerés nem működik minden böngészőben és eszközön. Chrome-ban, HTTPS-kapcsolaton, engedélyezett mikrofonnal működik a legnagyobb eséllyel. Ha nem érhető el, a fenti gombokkal továbbra is használhatod az alkalmazást.</p>
+    </section>
+    <footer>SeeVoice – egyszerű képfelismerő és szövegfelolvasó prototípus.</footer>
+  </main>
+</body>
+</html>
