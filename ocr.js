@@ -1,6 +1,6 @@
 /* OCR integration module. The Tesseract.js library is loaded in index.html. */
 window.SeeVoiceOCR = (() => {
-  const LANGUAGE = "hu";
+  const LANGUAGE = "hun";
 
   async function recognizeImage(imageFile, onProgress = () => {}) {
     if (!imageFile) throw new Error("Please choose an image first.");
